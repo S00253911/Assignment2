@@ -1,1 +1,13 @@
-<p>patients-page works!</p>
+<h2>Patient List</h2>
+
+@if (patients$ | async; as patient) {
+
+<ul>
+  @for (patients of patient; track patients._id) {
+  <li>{{ patients.firstName }} {{ patients._id }}</li>
+  }
+</ul>
+} @else {
+Loading patients...
+
+}

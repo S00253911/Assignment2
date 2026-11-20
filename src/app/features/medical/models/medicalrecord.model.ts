@@ -5,6 +5,7 @@ export interface MedicalrecordModel {
 }
 
 export interface MedicalRecord{
+    _id: string;
     patient: Patient;
     doctor: Doctor;
     date: Date;

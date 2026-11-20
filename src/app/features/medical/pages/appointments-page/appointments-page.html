@@ -1,1 +1,13 @@
-<p>appointments-page works!</p>
+<h2>Appointments List</h2>
+
+@if (appointments$ | async; as appointment) {
+
+<ul>
+  @for (appointments of appointment; track appointments._id) {
+  <li>{{ appointments.reason }} {{ appointments._id }}</li>
+  }
+</ul>
+} @else {
+Loading appointments...
+
+}
