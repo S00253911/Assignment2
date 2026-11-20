@@ -1,1 +1,13 @@
-<p>doctors-page works!</p>
+<h2>Doctors List</h2>
+
+@if (doctors$ | async; as doctor) {
+
+<ul>
+  @for (doctors of doctor; track doctors._id) {
+  <li>{{ doctors.firstName }} {{ doctors._id }}</li>
+  }
+</ul>
+} @else {
+Loading doctors...
+
+}

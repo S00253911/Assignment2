@@ -1,1 +1,13 @@
-<p>medicalrecords-page works!</p>
+<h2>MedicalRecords List</h2>
+
+@if (medicalRecords$ | async; as medicalRecord) {
+
+<ul>
+  @for (medicalRecords of medicalRecord; track medicalRecords._id) {
+  <li>{{ medicalRecords.diagnosis }} {{ medicalRecords._id }}</li>
+  }
+</ul>
+} @else {
+Loading Medical Records...
+
+}
