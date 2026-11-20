@@ -1,1 +1,6 @@
-<p>patient-card works!</p>
+<div class="card">
+    <h3>{{ patient().firstName }} {{ patient().lastName }}</h3>
+
+    @if(patient().age){ <p>Age: {{ patient().age }}</p>}
+
+</div>

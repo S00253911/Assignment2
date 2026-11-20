@@ -3,10 +3,11 @@ import { Observable } from 'rxjs';
 import { MedicalService } from '../../services/medical.service';
 import { Patient } from '../../models/patient.model';
 import { AsyncPipe } from '@angular/common';
+import { PatientCard } from '../patient-card/patient-card';
 
 @Component({
   selector: 'app-patients-page',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, PatientCard],
   templateUrl: './patients-page.html',
   styleUrl: './patients-page.scss',
 })

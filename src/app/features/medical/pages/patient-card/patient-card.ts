@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-
+import { Component, input } from '@angular/core';
+import { Patient } from '../../models/patient.model';
+ 
 @Component({
   selector: 'app-patient-card',
   imports: [],
@@ -8,4 +9,5 @@ import { Component } from '@angular/core';
 })
 export class PatientCard {
 
+    patient = input.required<Patient>();
 }
