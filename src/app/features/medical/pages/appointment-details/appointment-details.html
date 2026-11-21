@@ -1,1 +1,27 @@
-<p>appointment-details works!</p>
+<h2>Appointment Details</h2>
+
+<p> Appointment ID Is {{id()}}</p>
+
+@let s = state();
+@if (s.status === 'loading') {
+  <p>Loading Appointment details...</p>
+} 
+@else if (s.status === 'error') {
+  <p >{{ s.message }}</p>
+} 
+@else {
+  <h2>Patient:{{ s.data.patient }} Doctor: {{ s.data.doctor }} </h2>
+  
+@if (s.data.date) {
+    <p>Date: {{ s.data.date }}</p>
+  }
+
+@if(s.data.time){
+    <p>Time: {{s.data.time }}</p>
+    }
+    
+@if(s.data.reason){
+    <p>Reason: {{s.data.reason }}</p>
+}
+
+}

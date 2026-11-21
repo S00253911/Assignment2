@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { MedicalService } from '../../services/medical.service';
+import { LoadState, withLoadState } from '../../../../shared/load-state';
+import { Doctor } from '../../models/doctor.model';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-doctor-details',
@@ -7,5 +12,18 @@ import { Component } from '@angular/core';
   styleUrl: './doctor-details.scss',
 })
 export class DoctorDetails {
+  
+  private doctorService = inject(MedicalService);
+
+  readonly id = input.required<string>();
+
+  readonly initial: LoadState<Doctor> = { status: 'loading' };
+
+  state = toSignal(
+    toObservable(this.id).pipe(
+      switchMap((id) => withLoadState(this.doctorService.getDoctorById(id))),
+    ),
+    { initialValue: this.initial },
+  );
 
 }

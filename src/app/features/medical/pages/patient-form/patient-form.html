@@ -1,5 +1,5 @@
 <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" class="patient-form">
-  <h2>Patient Form Form</h2>
+  <h2>Patient Form</h2>
 
 
   <!-- First Name Field -->
@@ -34,9 +34,11 @@
   </div>
 
   <!-- Action Buttons -->
+  @if (saveError(); as message) { <p role="alert">{{ message }}</p> }
   <div class="button-group">
-    <button type="submit"     >
-     Save Patient</button>
-
+    <button type="submit" [disabled]="saving()">
+      {{ saving() ? 'Saving...' : 'Save patient' }}
+    </button>
+    <a routerLink="/patients">Cancel</a>
   </div>
-</form>
+

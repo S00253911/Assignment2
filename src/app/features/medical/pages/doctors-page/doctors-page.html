@@ -1,15 +1,18 @@
-<h2>Doctors List</h2>
-
-@if (doctors$ | async; as doctor) {
-
-<ul>
- <div class="grid">
-            @for (doctors of doctor; track doctors._id) {
-             <app-doctor-card [doctor]="doctors" />
-            }  
+<div class="doctors-page-container">
+  <h2>Doctors List</h2>
+<button [routerLink]="['']">Home</button>
+  @let s = state();
+  @if (s.status === 'loading') {
+    <p>Loading Doctors...</p>
+  } @else if (s.status === 'error') {
+    <p> {{ s.message }}</p>
+  } @else if (s.data.length === 0) {
+    <p>No Doctors available at the moment.</p>
+  } @else {
+    <div class="grid">
+      @for (doctor of s.data; track doctor._id) {
+        <app-doctor-card [doctor]="doctor" />
+      }
     </div>
-</ul>
-} @else {
-Loading doctors...
-
-}
+  }
+</div>

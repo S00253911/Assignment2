@@ -10,6 +10,15 @@ export interface Doctor{
     firstName: string;
     lastName: string;
     specialization: string;
-    age: Number;
+    age: number;
     attendingPatients: Patient[];
+}
+
+export interface CreateDoctorDto{
+    title: string;
+    firstName: string;
+    lastName: string;
+    specialization: string;
+    age: number;
+    attendingPatients?: string[]; 
 }

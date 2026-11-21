@@ -1,1 +1,29 @@
-<p>medicalrecord-details works!</p>
+<h2>Medical Record Details</h2>
+
+<p> Record ID Is {{id()}}</p>
+
+@let s = state();
+@if (s.status === 'loading') {
+  <p>Loading record details...</p>
+} 
+@else if (s.status === 'error') {
+  <p >{{ s.message }}</p>
+} 
+@else {
+  <h2>Patient:{{ s.data.patient }} Doctor: {{ s.data.doctor }}</h2>
+  
+@if (s.data.date) {
+    <p>Date: {{ s.data.date }}</p>
+  }
+
+@if(s.data.diagnosis){
+    <p>Diagnosis: {{s.data.diagnosis }}</p>
+    }
+    
+@if(s.data.treatment){
+    <p>Treatment: {{s.data.treatment }}</p>
+}
+@if(s.data.prescription){
+    <p>Prescription: {{s.data.prescription }}</p>
+}
+}

@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, UntypedFormArray, Validators } from '@angular/forms';
 import { CreatePatientDto, Patient } from '../../models/patient.model';
 import { MedicalService } from '../../services/medical.service';
 import { Router } from '@angular/router';
@@ -14,10 +14,14 @@ import { Router } from '@angular/router';
 export class PatientForm {
 
   private formBuilder = inject(FormBuilder);
-  private medicalService = inject(MedicalService)
+  private patientService = inject(MedicalService)
   private router = inject(Router);
 
-  patientForm = this.formBuilder.group({
+
+  saving = signal(false);
+  saveError = signal<string | null>(null)
+
+  patientForm = this.formBuilder.nonNullable.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     age: [0, [Validators.required, Validators.min(0)]],
@@ -26,21 +30,23 @@ export class PatientForm {
   });
 
   onSubmit(): void {
-    if (this.patientForm.invalid){
-      return;
-    }
 
-    const patientData: Patient = this.patientForm.value as Patient;
-    console.log('Submitted Patient:', patientData);
+    
+  const { firstName, lastName, age, eirCode, attendingDoctor } = this.patientForm.getRawValue();
+  const newPatient: CreatePatientDto = { firstName, lastName, age, eirCode, attendingDoctor };
+      
+  this.saving.set(true);
+  this.saveError.set(null);
 
-    this.medicalService.addPatient(patientData).subscribe({
+      this.patientService.addPatient(newPatient).subscribe({
       next: (response) => {
-        console.log('Patient added successfully', response);
+        console.log('Patient added successfully:', response);
+        this.router.navigate(['/patients']);
       },
-      error: (error) => {
-        console.error('Error adding the patient', error);
-      }
-    })
-    this.router.navigate(['/patients']);
+    error: (err: Error) => {
+      this.saveError.set(err.message);
+      this.saving.set(false);
+    },
+    });
   }
 }

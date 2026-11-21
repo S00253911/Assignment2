@@ -12,3 +12,11 @@ export interface Appointment{
     time: string;
     reason: string;
 }
+
+export interface CreateAppointmentDto{
+    patient: string;
+    doctor: string;
+    date: Date;
+    time: string;
+    reason: string;
+}

@@ -17,6 +17,6 @@ export interface CreatePatientDto{
     lastName: string;
     age: number;
     eirCode?: string;
-    attendingDoctor?: Doctor;
+    attendingDoctor?: string; // doctors id
 
 }

@@ -1,15 +1,18 @@
-<h2>MedicalRecords List</h2>
-
-@if (medicalRecords$ | async; as medicalRecord) {
-
-<ul>
-  <div class="grid">
-            @for (medicalRecords of medicalRecord; track medicalRecords._id) {
-             <app-medicalrecord-card [medicalrecord]="medicalRecords" />
-            }  
+<div class="medicalrecords-page-container">
+  <h2>Records List</h2>
+<button [routerLink]="['']">Home</button>
+  @let s = state();
+  @if (s.status === 'loading') {
+    <p>Loading medicalRecords...</p>
+  } @else if (s.status === 'error') {
+    <p> {{ s.message }}</p>
+  } @else if (s.data.length === 0) {
+    <p>No medicalRecords available at the moment.</p>
+  } @else {
+    <div class="grid">
+      @for (medicalRecord of s.data; track medicalRecord._id) {
+        <app-medicalrecord-card [medicalrecord]="medicalRecord" />
+      }
     </div>
-</ul>
-} @else {
-Loading Medical Records...
-
-}
+  }
+</div>

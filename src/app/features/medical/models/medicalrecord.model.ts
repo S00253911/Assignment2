@@ -14,8 +14,8 @@ export interface MedicalRecord{
     prescription?: string;
 }
 export interface CreateMedicalRecordDto{
-    patient?: Patient;
-    doctor?: Doctor;
+    patient?: string;
+    doctor?: string;
     date: string;
     diagnosis?: string;
     treatment?: string;
