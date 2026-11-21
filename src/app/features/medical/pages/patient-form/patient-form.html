@@ -1,1 +1,42 @@
-<p>patient-form works!</p>
+<form [formGroup]="patientForm" (ngSubmit)="onSubmit()" class="patient-form">
+  <h2>Patient Form Form</h2>
+
+
+  <!-- First Name Field -->
+  <div class="form-group">
+    <label for="firstName">First Name:</label>
+    <input id="firstName" type="text" formControlName="firstName" placeholder="e.g. Bobby" />
+  </div>
+
+  <!-- Last Name Field -->
+  <div class="form-group">
+    <label for="model">Last Name:</label>
+    <input id="lastName" type="text" formControlName="model" placeholder="e.g. Ross" />
+    
+  </div>
+
+  <!-- Age Field -->
+  <div class="form-group">
+    <label for="year">Age:</label>
+    <input id="age" type="number" formControlName="age" placeholder="e.g. 2004" />
+  </div>
+
+  <!-- EirCode Field -->
+  <div class="form-group">
+    <label for="year">EirCode:</label>
+    <input id="eircode" type="text" formControlName="eircode" placeholder="e.g. F26 X4532" />
+  </div>
+  
+  <!-- Year Field -->
+  <div class="form-group">
+    <label for="year">Doctor:</label>
+    <input id="attendingdoctor" type="text" formControlName="attendingdoctor" placeholder="e.g. 15342123" />
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="button-group">
+    <button type="submit"     >
+     Save Patient</button>
+
+  </div>
+</form>

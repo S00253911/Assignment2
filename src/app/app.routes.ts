@@ -7,44 +7,73 @@ import { PatientDetails } from './features/medical/pages/patient-details/patient
 import { DoctorDetails } from './features/medical/pages/doctor-details/doctor-details';
 import { MedicalrecordDetails } from './features/medical/pages/medicalrecord-details/medicalrecord-details';
 import { AppointmentDetails } from './features/medical/pages/appointment-details/appointment-details';
+import { PatientForm } from './features/medical/pages/patient-form/patient-form';
+import { DoctorForm } from './features/medical/pages/doctor-form/doctor-form';
+import { AppointmentForm } from './features/medical/pages/appointment-form/appointment-form';
+import { MedicalrecordForm } from './features/medical/pages/medicalrecord-form/medicalrecord-form';
 
 export const routes: Routes = [
+    // DEFAULT ROUTE
 {
     path: '',
     redirectTo: '',
     pathMatch: 'full'
 },
+
+// PATIENT ROUTES
 {
     path: 'patients',
     component: PatientsPage
 },
 {
+    path: 'patients/new',
+    component: PatientForm
+},
+{
     path: 'patients/:id',
     component: PatientDetails
 },
+// DOCTOR ROUTES
+
 {
     path: 'doctors',
     component: DoctorsPage
 },
 {
+    path: 'doctors/new',
+    component: DoctorForm
+},
+{
     path: 'doctors/:id',
     component: DoctorDetails
 },
+// MEDICAL RECORD ROUTES
+
 {
     path: 'medicalrecords',
     component: MedicalrecordsPage
 },
 {
+    path: 'medicalrecords/new',
+    component: MedicalrecordForm
+},
+{
     path: 'medicalrecords/:id',
     component: MedicalrecordDetails
 },
+
+
+// APPOINTMENTS ROUTES
 {
     path: 'appointments',
     component: AppointmentsPage
 },
 {
+    path: 'appointments/new',
+    component: AppointmentForm
+},
+{
     path: 'appointments:id',
     component: AppointmentDetails
 }
-
 ];
