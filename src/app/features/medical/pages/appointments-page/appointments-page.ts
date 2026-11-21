@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+
 import { Component, inject, OnInit } from '@angular/core';
 import { MedicalService } from '../../services/medical.service';
 import { AppointmentCard } from '../appointment-card/appointment-card';
@@ -9,7 +9,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-appointments-page',
-  imports: [AsyncPipe, AppointmentCard, RouterLink],
+  imports: [ AppointmentCard, RouterLink],
   templateUrl: './appointments-page.html',
   styleUrl: './appointments-page.scss',
 })
