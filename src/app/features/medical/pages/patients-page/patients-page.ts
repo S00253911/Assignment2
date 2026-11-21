@@ -1,8 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, inject } from '@angular/core';
 import { MedicalService } from '../../services/medical.service';
-import { Patient } from '../../models/patient.model';
-import { AsyncPipe } from '@angular/common';
 import { PatientCard } from '../patient-card/patient-card';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -10,7 +7,7 @@ import { withLoadState } from '../../../../shared/load-state';
 
 @Component({
   selector: 'app-patients-page',
-  imports: [AsyncPipe, PatientCard, RouterLink],
+  imports: [PatientCard, RouterLink],
   templateUrl: './patients-page.html',
   styleUrl: './patients-page.scss',
 })

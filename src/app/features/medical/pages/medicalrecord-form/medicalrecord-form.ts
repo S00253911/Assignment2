@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MedicalService } from '../../services/medical.service';
 import { Router } from '@angular/router';
-import { MedicalRecord } from '../../models/medicalrecord.model';
+import { CreateMedicalRecordDto, MedicalRecord } from '../../models/medicalrecord.model';
 
 @Component({
   selector: 'app-medicalrecord-form',
@@ -16,7 +16,10 @@ export class MedicalrecordForm {
   private medicalService = inject(MedicalService)
   private router = inject(Router);
 
-  medicalRecordForm = this.formBuilder.group({
+  saving = signal(false);
+  saveError = signal<string | null>(null)
+
+  medicalRecordForm = this.formBuilder.nonNullable.group({
     patient: [''],
     doctor: [''],
     date: [''],
@@ -26,21 +29,19 @@ export class MedicalrecordForm {
   });
 
   onSubmit(): void {
-    if (this.medicalRecordForm.invalid){
-      return;
-    }
 
-    const medicalRecord: MedicalRecord = this.medicalRecordForm.value as MedicalRecord;
-    console.log('Submitted Medical Record:', medicalRecord);
+    const {patient, doctor, date, diagnosis, treatment, prescription } = this.medicalRecordForm.getRawValue();
+    const newMedicalRecord: CreateMedicalRecordDto = {patient, doctor, date, diagnosis, treatment, prescription};
 
-    this.medicalService.addMedicalRecord(medicalRecord).subscribe({
+    this.medicalService.addMedicalRecord(newMedicalRecord).subscribe({
       next: (response) => {
-        console.log('Medical Record added successfully', response);
+        console.log('Record added successfully:', response);
+        this.router.navigate(['/medicalrecords']);
       },
-      error: (error) => {
-        console.error('Error adding the medical record', error);
-      }
-    })
-    this.router.navigate(['/medicalrecords']);
+      error: (err: Error) => {
+        this.saveError.set(err.message);
+        this.saving.set(false);
+      },
+    });
   }
 }
