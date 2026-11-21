@@ -22,3 +22,12 @@ export interface CreateDoctorDto{
     age: number;
     attendingPatients?: string[]; 
 }
+
+export interface UpdateDoctorDto{
+    title: string;
+    firstName: string;
+    lastName: string;
+    specialization: string;
+    age: number;
+    attendingPatients: string[];
+}

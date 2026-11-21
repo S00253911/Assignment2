@@ -5,10 +5,11 @@ import { Patient } from '../../models/patient.model';
 import { switchMap } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-patient-details',
-  imports: [RouterLink],
+  imports: [RouterLink, MatButton, MatButtonModule],
   templateUrl: './patient-details.html',
   styleUrl: './patient-details.scss',
 })

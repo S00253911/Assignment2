@@ -21,3 +21,12 @@ export interface CreateMedicalRecordDto{
     treatment?: string;
     prescription?: string;
 }
+
+export interface UpdateMedicalRecordDto{
+    patient: string;
+    doctor: string;
+    date: string;
+    diagnosis: string;
+    treatment: string;
+    prescription: string;
+}

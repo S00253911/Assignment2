@@ -5,10 +5,11 @@ import { LoadState, withLoadState } from '../../../../shared/load-state';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
 import { RouterLink } from '@angular/router';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-appointment-details',
-  imports: [RouterLink],
+  imports: [RouterLink, MatButton, MatButtonModule],
   templateUrl: './appointment-details.html',
   styleUrl: './appointment-details.scss',
 })

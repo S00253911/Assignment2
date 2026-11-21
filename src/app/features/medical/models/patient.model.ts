@@ -16,7 +16,15 @@ export interface CreatePatientDto{
     firstName: string;
     lastName: string;
     age: number;
-    eirCode?: string;
-    attendingDoctor?: string; // doctors id
+    eirCode: string;
+    attendingDoctor: string; // doctors id
 
+}
+
+export interface UpdatePatientDto{
+    firstName: string;
+    lastName: string;
+    age: number;
+    eirCode: string;
+    attendingDoctor: string
 }

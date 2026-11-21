@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormArray, Validators } from '@angular/forms';
 import { CreatePatientDto, Patient } from '../../models/patient.model';
 import { MedicalService } from '../../services/medical.service';
@@ -17,12 +17,13 @@ import { MatSnackBar } from '@angular/material/snack-bar'
   templateUrl: './patient-form.html',
   styleUrl: './patient-form.scss',
 })
-export class PatientForm {
+export class PatientForm implements OnInit{
 
   private formBuilder = inject(FormBuilder);
   private patientService = inject(MedicalService)
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
+  readonly id = input<string>();  // note this is optional by default
 
   saving = signal(false);
   saveError = signal<string | null>(null)
@@ -37,10 +38,14 @@ export class PatientForm {
 
   onSubmit(): void {
 
-    
   const { firstName, lastName, age, eirCode, attendingDoctor } = this.patientForm.getRawValue();
   const newPatient: CreatePatientDto = { firstName, lastName, age, eirCode, attendingDoctor };
       
+   const id = this.id(); 
+    const request = id 
+    ? this.patientService.updatePatient(id, newPatient)
+    : this.patientService.addPatient(newPatient);
+
   this.saving.set(true);
   this.saveError.set(null);
 
@@ -56,6 +61,17 @@ export class PatientForm {
       this.saveError.set(err.message);
       this.saving.set(false);
     },
+    });
+  }
+
+  ngOnInit(): void {
+    const id = this.id();
+    if (!id) return; // adding a new patient, nothing to load
+
+    this.patientService.getPatientById(id).subscribe({
+      next: (patient) =>
+        this.patientForm.patchValue({ firstName: patient.firstName, lastName: patient.lastName, age: patient.age, eirCode: patient.eirCode, attendingDoctor: patient.attendingDoctor?._id }),
+      error: (err: Error) => this.saveError.set(err.message),
     });
   }
 }
