@@ -1,1 +1,6 @@
-<p>medicalrecord-card works!</p>
+<div class="card">
+    <h3>{{ medicalrecord()._id }} {{ medicalrecord().diagnosis }}</h3>
+
+    @if(medicalrecord().diagnosis){ <p>diagnosis: {{ medicalrecord().diagnosis }}</p>}
+
+</div>

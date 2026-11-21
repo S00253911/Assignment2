@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input} from '@angular/core';
+import { Appointment } from '../../models/appointment.model';
 
 @Component({
   selector: 'app-appointment-card',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './appointment-card.scss',
 })
 export class AppointmentCard {
-
+   appointment = input.required<Appointment>();
 }

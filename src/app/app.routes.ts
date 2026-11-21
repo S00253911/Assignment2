@@ -21,7 +21,7 @@ export const routes: Routes = [
 {
     path: 'patients/:id',
     component: PatientDetails
-}.
+},
 {
     path: 'doctors',
     component: DoctorsPage

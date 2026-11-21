@@ -3,9 +3,11 @@
 @if (medicalRecords$ | async; as medicalRecord) {
 
 <ul>
-  @for (medicalRecords of medicalRecord; track medicalRecords._id) {
-  <li>{{ medicalRecords.diagnosis }} {{ medicalRecords._id }}</li>
-  }
+  <div class="grid">
+            @for (medicalRecords of medicalRecord; track medicalRecords._id) {
+             <app-medicalrecord-card [medicalrecord]="medicalRecords" />
+            }  
+    </div>
 </ul>
 } @else {
 Loading Medical Records...

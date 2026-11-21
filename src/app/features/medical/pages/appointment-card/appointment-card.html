@@ -1,1 +1,6 @@
-<p>appointment-card works!</p>
+<div class="card">
+    <h3>{{ appointment()._id }} {{ appointment().date }}</h3>
+
+    @if(appointment().time){ <p>Time: {{ appointment().time }}</p>}
+
+</div>
