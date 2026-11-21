@@ -4,10 +4,11 @@ import { MedicalService } from '../../services/medical.service';
 import { Observable } from 'rxjs';
 import { MedicalRecord } from '../../models/medicalrecord.model';
 import { MedicalrecordCard } from '../medicalrecord-card/medicalrecord-card';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-medicalrecords-page',
-  imports: [AsyncPipe, MedicalrecordCard],
+  imports: [AsyncPipe, MedicalrecordCard, RouterLink],
   templateUrl: './medicalrecords-page.html',
   styleUrl: './medicalrecords-page.scss',
 })

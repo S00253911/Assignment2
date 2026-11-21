@@ -4,10 +4,11 @@ import { MedicalService } from '../../services/medical.service';
 import { Patient } from '../../models/patient.model';
 import { AsyncPipe } from '@angular/common';
 import { PatientCard } from '../patient-card/patient-card';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-patients-page',
-  imports: [AsyncPipe, PatientCard],
+  imports: [AsyncPipe, PatientCard, RouterLink],
   templateUrl: './patients-page.html',
   styleUrl: './patients-page.scss',
 })

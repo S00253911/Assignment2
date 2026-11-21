@@ -11,12 +11,13 @@ import { PatientForm } from './features/medical/pages/patient-form/patient-form'
 import { DoctorForm } from './features/medical/pages/doctor-form/doctor-form';
 import { AppointmentForm } from './features/medical/pages/appointment-form/appointment-form';
 import { MedicalrecordForm } from './features/medical/pages/medicalrecord-form/medicalrecord-form';
+import { MainPage } from './features/medical/pages/main-page/main-page';
 
 export const routes: Routes = [
     // DEFAULT ROUTE
 {
     path: '',
-    redirectTo: '',
+    component: MainPage,
     pathMatch: 'full'
 },
 

@@ -4,11 +4,12 @@ import { MedicalService } from '../../services/medical.service';
 import { Observable } from 'rxjs';
 import { Appointment } from '../../models/appointment.model';
 import { AppointmentCard } from '../appointment-card/appointment-card';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-appointments-page',
-  imports: [AsyncPipe, AppointmentCard],
+  imports: [AsyncPipe, AppointmentCard, RouterLink],
   templateUrl: './appointments-page.html',
   styleUrl: './appointments-page.scss',
 })
