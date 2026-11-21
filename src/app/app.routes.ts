@@ -74,7 +74,7 @@ export const routes: Routes = [
     component: AppointmentForm
 },
 {
-    path: 'appointments:id',
+    path: 'appointments/:id',
     component: AppointmentDetails
 }
 ];
