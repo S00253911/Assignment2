@@ -5,7 +5,7 @@ export interface AppointmentModel {
 }
 
 export interface Appointment{
-    _id?: string;
+    _id: string;
     patient: Patient;
     doctor: Doctor;
     date: Date;

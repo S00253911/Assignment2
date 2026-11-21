@@ -4,7 +4,7 @@ export interface PatientModel {
 }
 
 export interface Patient{
-    _id?: string;
+    _id: string;
     firstName: string;
     lastName: string;
     age: number;

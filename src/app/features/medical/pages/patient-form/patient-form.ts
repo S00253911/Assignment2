@@ -7,8 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCard, MatCardModule } from '@angular/material/card';
-import { MatProgressBarModule } from '@angular/material/progress-bar'
-import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { notBlank } from '../../../../shared/validators/not-blank.validator';
+
 
 
 @Component({
@@ -29,10 +31,10 @@ export class PatientForm implements OnInit{
   saveError = signal<string | null>(null)
 
   patientForm = this.formBuilder.nonNullable.group({
-    firstName: ['', Validators.required, Validators.minLength(2), Validators.maxLength(40)],
-    lastName: ['', Validators.required, Validators.minLength(2), Validators.maxLength(40)],
-    age: [0, [Validators.required, Validators.min(0)]],
-    eirCode: ['', [Validators.minLength(7), Validators.maxLength(7)]],
+    firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40), notBlank]],
+    lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40), notBlank]],
+    age: [0, [Validators.required, Validators.min(0), notBlank]],
+    eirCode: ['', [Validators.minLength(7), Validators.maxLength(7), notBlank]],
     attendingDoctor: ['']
   });
 

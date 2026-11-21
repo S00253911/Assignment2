@@ -5,7 +5,7 @@ export interface DoctorModel {
 }
 
 export interface Doctor{
-    _id?: string;
+    _id: string;
     title: string;
     firstName: string;
     lastName: string;

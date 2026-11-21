@@ -12,7 +12,9 @@
     } @else if (patientForm.controls.firstName.hasError('maxlength')) {
     <mat-error>First Name must be 40 characters or fewer</mat-error>
     }
-
+    @if(patientForm.controls.firstName.hasError('blank')){
+      <mat-error>First name cannot be only spaces</mat-error>
+    }
     <input matInput formControlName="firstName" placeholder="e.g. Bobby">
    </mat-form-field> 
 
@@ -25,6 +27,9 @@
     <mat-error>LastName must be at least 2 characters</mat-error>
     } @else if (patientForm.controls.lastName.hasError('maxlength')) {
     <mat-error>Last Name must be 40 characters or fewer</mat-error>
+    }
+    @if(patientForm.controls.lastName.hasError('blank')){
+      <mat-error>Last name cannot be only spaces</mat-error>
     }
     <input matInput formControlName="lastName" placeholder="e.g. Ross">
    </mat-form-field>
@@ -39,6 +44,9 @@
   } @else if (patientForm.controls.age.hasError('minlength')) {
     <mat-error>Age must be at least 0</mat-error>
     } 
+    @if(patientForm.controls.age.hasError('blank')){
+      <mat-error>Age cannot be only spaces</mat-error>
+    }
 
     <input matInput formControlName="age" type="number" placeholder="e.g. 19">
    </mat-form-field> 
@@ -52,6 +60,9 @@
     <mat-error>LastName must be at least 7 characters</mat-error>
     } @else if (patientForm.controls.eirCode.hasError('maxlength')) {
     <mat-error>Last Name must be 7 characters or fewer</mat-error>
+    }
+    @if(patientForm.controls.eirCode.hasError('blank')){
+      <mat-error>Eircode cannot be only spaces</mat-error>
     }
     <input matInput formControlName="eirCode" placeholder="e.g. F26 X452">
    </mat-form-field> 
