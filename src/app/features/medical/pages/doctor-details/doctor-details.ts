@@ -4,10 +4,11 @@ import { LoadState, withLoadState } from '../../../../shared/load-state';
 import { Doctor } from '../../models/doctor.model';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-doctor-details',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './doctor-details.html',
   styleUrl: './doctor-details.scss',
 })

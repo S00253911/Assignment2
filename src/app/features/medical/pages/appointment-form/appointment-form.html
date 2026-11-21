@@ -2,42 +2,59 @@
   <h2>Appointment Form</h2>
 
  <!-- patient Field -->
-  <div class="form-group">
-    <label for="patient">Patient:</label>
-    <input id="patient" type="text" formControlName="patient" placeholder="e.g. Jimmy" />
-  </div>
+  <mat-form-field>
+    <mat-label>Patient:</mat-label>
+    @if (appointmentForm.controls.patient.hasError('required')){
+          <mat-error>Patient is required</mat-error>
+    }
+    <input matInput formControlName="patient" placeholder="e.g. Justin">
+   </mat-form-field> 
 
   <!-- Doctor Field -->
-  <div class="form-group">
-    <label for="doctor">Doctor:</label>
-    <input id="doctor" type="text" formControlName="doctor" placeholder="e.g. Bobby" />
-  </div>
-
+  <mat-form-field>
+    <mat-label>Doctor:</mat-label>
+    @if (appointmentForm.controls.doctor.hasError('required')){
+          <mat-error>Doctor is required</mat-error>
+    }
+    <input matInput formControlName="Doctor" placeholder="e.g. Mohammad">
+   </mat-form-field> 
   <!-- Date Field -->
-  <div class="form-group">
-    <label for="date">Date:</label>
-    <input id="date" type="date" formControlName="date" placeholder="e.g. 24-10-2004" />
-    
-  </div>
+ <mat-form-field>
+    <mat-label>Date:</mat-label>
+    @if (appointmentForm.controls.date.hasError('required')){
+          <mat-error>Date is required</mat-error>
+    }
+    <input matInput formControlName="date" type="date" placeholder="e.g. 13-10-2026">
+   </mat-form-field> 
 
   <!-- Time Field -->
-  <div class="form-group">
-    <label for="time">Time:</label>
-    <input id="time" type="string" formControlName="time" placeholder="e.g. 8pm" />
-  </div>
+  <mat-form-field>
+    <mat-label>Time:</mat-label>
+    @if (appointmentForm.controls.time.hasError('required')){
+          <mat-error>Time is required</mat-error>
+    }
+    <input matInput formControlName="time" placeholder="e.g. 10:30am">
+   </mat-form-field> 
 
   <!-- Reason Field -->
-  <div class="form-group">
-    <label for="reason">Reason:</label>
-    <input id="reason" type="text" formControlName="reason" placeholder="e.g. Big Toe Hurting" />
-  </div>
+  <mat-form-field>
+    <mat-label>Reason:</mat-label>
+    @if (appointmentForm.controls.reason.hasError('required')){
+          <mat-error>Reason is required</mat-error>
+    }
+    <input matInput formControlName="reason" placeholder="e.g. Broken Foot">
+   </mat-form-field> 
 
   <!-- Action Buttons -->
   @if (saveError(); as message) { <p role="alert">{{ message }}</p> }
   <div class="button-group">
-    <button type="submit" [disabled]="saving()">
+    <button matButton="filled" type="submit" [disabled]="saving()">
       {{ saving() ? 'Saving...' : 'Save Appointment' }}
     </button>
-    <a routerLink="/appointments">Cancel</a>
+    <a matButton routerLink="/appointments">Cancel</a>
   </div>
+  @if (saving()){ 
+    <mat-progress-bar mode="buffer" />
+  }
+</form>
 
