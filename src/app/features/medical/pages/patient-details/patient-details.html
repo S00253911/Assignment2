@@ -1,1 +1,22 @@
-<p>patient-details works!</p>
+<h2>Patient Details</h2>
+
+<p> Patient ID Is {{id()}}</p>
+
+@let s = state();
+@if (s.status === 'loading') {
+  <p>Loading patient details...</p>
+} 
+@else if (s.status === 'error') {
+  <p >{{ s.message }}</p>
+} 
+@else {
+  <h2>{{ s.data.firstName }} {{ s.data.lastName }}</h2>
+  
+@if (s.data.age) {
+    <p>Age: {{ s.data.age }}</p>
+  }
+
+@if(s.data.attendingDoctor){
+    <p>Doctor: {{s.data.attendingDoctor }}</p>
+    }
+}

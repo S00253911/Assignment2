@@ -21,79 +21,107 @@ export class MedicalService {
  private appointmentApiUrl = 'http://localhost:3001/api/appointments'
  private medicalrecordsApiUrl = 'http://localhost:3001/api/medicalrecords'; 
 
- // GET FUNCTION FOR PATIENTS
+ //  FUNCTIONS FOR PATIENTS
  getPatients(): Observable<Patient[]>{
-  return this.http.get<Patient[]>(this.patientApiUrl);
+  return this.http.get<Patient[]>(this.patientApiUrl)
+  .pipe(
+    catchError((err) => this.handleError(err))
+  );
  }
  getPatientById(id: string): Observable<Patient>{
   return this.http.get<Patient>(`${this.patientApiUrl}/${id}`)
+  .pipe(
+    catchError((err) => this.handleError(err))
+  );
  } 
  addPatient(patient: CreatePatientDto): Observable<Patient>{
   return this.http.post<Patient>(this.patientApiUrl, patient)
   .pipe(
     catchError((err) => this.handleError(err))
-  )
+  );
  }
 
 
-// GET FUNCTION FOR DOCTORS
+//  FUNCTIONS FOR DOCTORS
  getDoctors(): Observable<Doctor[]>{
-  return this.http.get<Doctor[]>(this.doctorApiUrl);
+  return this.http.get<Doctor[]>(this.doctorApiUrl)
+  .pipe(
+    catchError((err) => this.handleError(err))
+  );
  }
  getDoctorById(id: string): Observable<Doctor>{
   return this.http.get<Doctor>(`${this.doctorApiUrl}/${id}`)
+  .pipe(
+    catchError((err) => this.handleError(err))
+  );
  } 
 
 
-// GET FUNCTION FOR APPOINTMENTS
+//  FUNCTIONS FOR APPOINTMENTS
  getAppointments(): Observable<Appointment[]>{
-  return this.http.get<Appointment[]>(this.appointmentApiUrl);
+  return this.http.get<Appointment[]>(this.appointmentApiUrl)
+  .pipe(
+    catchError((err) => this.handleError(err))
+  );
  }
  getAppointmentById(id: string): Observable<Appointment>{
   return this.http.get<Appointment>(`${this.appointmentApiUrl}/${id}`)
+  .pipe(
+    catchError((err) => this.handleError(err))
+  );
  } 
 
 
-// GET FUNCTION FOR MEDICAL RECORDS
+//  FUNCTIONS FOR MEDICAL RECORDS
  getMedicalRecords(): Observable<MedicalRecord[]>{
-  return this.http.get<MedicalRecord[]>(this.medicalrecordsApiUrl);
+  return this.http.get<MedicalRecord[]>(this.medicalrecordsApiUrl)
+  .pipe(
+    catchError((err) => this.handleError(err))
+  );
  }
  getMedicalRecordById(id: string): Observable<MedicalRecord>{
   return this.http.get<MedicalRecord>(`${this.medicalrecordsApiUrl}/${id}`)
+  .pipe(
+    catchError((err) => this.handleError(err))
+  );
  }
 
  addMedicalRecord(medicalRecord: CreateMedicalRecordDto): Observable<MedicalRecord>{
   return this.http.post<MedicalRecord>(this.medicalrecordsApiUrl, medicalRecord)
   .pipe(
     catchError((err) => this.handleError(err))
-  )
+  );
  }
 
 
- private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
+ private handleError(error: HttpErrorResponse): Observable<never> {
+    let message: string;
 
-      if (error.status == 401 || error.status == 403) {
-
-        console.error('authorisation issue ' , error.status );
-         return throwError(() => new Error('You are not authorised for that action'));
-
-      }
-      console.error(
-        `Backend returned code ${error.status}, body was: `, error.error);
+    switch (error.status) {
+      case 0:
+        message = 'Cannot reach the server. Check that the API is running.';
+        break;
+      case 400:
+        message = 'Some of the data was not valid.';
+        break;
+      case 401:
+        message = 'Please log in to continue.';
+        break;
+      case 403:
+        message = 'You are not allowed to do that.';
+        break;
+      case 404:
+        message = 'That query could not be found.';
+        break;
+      default:
+        message = 'Something went wrong on the server. Please try again later.';
     }
-    // Return an observable with a user-facing error message.
-    return throwError(() => new Error('Something bad happened; please try again later.'));
+    // Details for dev, short for user
+    console.error(`HTTP ${error.status} from ${error.url}`, error);
+    return throwError(() => new Error(message));
   }
 
 }
-
-
 
 
 

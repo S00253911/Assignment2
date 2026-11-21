@@ -1,16 +1,18 @@
-<h2>Patient List</h2>
+<div class="patients-page-container">
+  <h2>Patients List</h2>
 <button [routerLink]="['']">Home</button>
-@if (patients$ | async; as patient) {
-
-<ul>
-   <div class="grid">
-            @for (patients of patient; track patients._id) {
-             <app-patient-card [patient]="patients" />
-            }  
+  @let s = state();
+  @if (s.status === 'loading') {
+    <p>Loading patients...</p>
+  } @else if (s.status === 'error') {
+    <p> {{ s.message }}</p>
+  } @else if (s.data.length === 0) {
+    <p>No patients available at the moment.</p>
+  } @else {
+    <div class="grid">
+      @for (patient of s.data; track patient._id) {
+        <app-patient-card [patient]="patient" />
+      }
     </div>
-</ul>
-} @else {
-Loading patients...
-
-}
-
+  }
+</div>
