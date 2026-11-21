@@ -3,4 +3,5 @@
 
     @if(medicalrecord().diagnosis){ <p>diagnosis: {{ medicalrecord().diagnosis }}</p>}
 
+    <a [routerLink]="['/medicalrecords', medicalrecord()._id]">View Profile</a>
 </div>

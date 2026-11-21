@@ -2,5 +2,6 @@
     <h3>{{ patient().firstName }} {{ patient().lastName }}</h3>
 
     @if(patient().age){ <p>Age: {{ patient().age }}</p>}
-
+ 
+    <a [routerLink]="['/patients', patient()._id]">View Profile</a>
 </div>

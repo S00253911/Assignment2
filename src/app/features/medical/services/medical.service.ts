@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';  
-import { Observable } from 'rxjs';
-import { Patient } from '../models/patient.model';
+import { Observable, throwError } from 'rxjs';
+import { CreatePatientDto, Patient } from '../models/patient.model';
 import { Doctor } from '../models/doctor.model';
 import { Appointment } from '../models/appointment.model';
 import { MedicalRecord } from '../models/medicalrecord.model';
-import { App } from '../../../app';
+import { catchError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -28,6 +28,13 @@ export class MedicalService {
  getPatientById(id: string): Observable<Patient>{
   return this.http.get<Patient>(`${this.patientApiUrl}/${id}`)
  } 
+
+ addPatient(patient: CreatePatientDto): Observable<Patient>{
+  return this.http.post<Patient>(this.patientApiUrl, patient)
+  .pipe(
+    catchError((err) => this.handleErrorPatient(err))
+  )
+ }
 // GET FUNCTION FOR DOCTORS
  getDoctors(): Observable<Doctor[]>{
   return this.http.get<Doctor[]>(this.doctorApiUrl);
@@ -49,6 +56,38 @@ export class MedicalService {
  getMedicalRecordById(id: string): Observable<MedicalRecord>{
   return this.http.get<MedicalRecord>(`${this.medicalrecordsApiUrl}/${id}`)
  }
+
+
+
+  private handleErrorPatient(error: HttpErrorResponse) : Observable<never>{
+    let message: string;
+
+    switch (error.status){
+      case 0:
+        message = 'Cannot reach the server. Check that the API is running.';
+        break;
+      case 400:
+        message = 'Some of the data was not valid';
+        break;
+      case 401:
+        message = 'Please log in to continue.';
+        break;
+      case 403:
+        message = 'You do not have permission to perform this action.';
+        break;
+      case 404:
+        message = 'That patient could not be found';
+        break;
+      default:
+        message = 'Something went wrong on the server. Please try again later.';
+    }
+    // Full details for the developer, a short message for the user
+    console.error(`HTTP ${error.status} from ${error.url}`, error);
+    return throwError(() => new Error(message));
+  } 
 }
+
+
+
 
 

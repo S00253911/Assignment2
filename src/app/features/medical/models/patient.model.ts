@@ -11,3 +11,12 @@ export interface Patient{
     eirCode: string;
     attendingDoctor: Doctor
 }
+
+export interface CreatePatientDto{
+    firstName: string;
+    lastName: string;
+    age: Number;
+    eirCode: string;
+    attendingDoctor: Doctor;
+    
+}

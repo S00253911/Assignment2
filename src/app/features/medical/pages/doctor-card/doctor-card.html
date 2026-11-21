@@ -3,4 +3,5 @@
 
     @if(doctor().title){ <p>Title: {{ doctor().age }}</p>}
 
+    <a [routerLink]="['/doctors', doctor()._id]">View Profile</a>
 </div>

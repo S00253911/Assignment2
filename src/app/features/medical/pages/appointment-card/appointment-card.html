@@ -3,4 +3,5 @@
 
     @if(appointment().time){ <p>Time: {{ appointment().time }}</p>}
 
+    <a [routerLink]="['/appointments', appointment()._id]">View Profile</a>
 </div>
