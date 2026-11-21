@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormArray, Validators } from '@angular/forms';
 import { CreatePatientDto, Patient } from '../../models/patient.model';
 import { MedicalService } from '../../services/medical.service';
@@ -14,8 +14,12 @@ import { Router } from '@angular/router';
 export class PatientForm {
 
   private formBuilder = inject(FormBuilder);
-  private medicalService = inject(MedicalService)
+  private patientService = inject(MedicalService)
   private router = inject(Router);
+
+
+  saving = signal(false);
+  saveError = signal<string | null>(null)
 
   patientForm = this.formBuilder.nonNullable.group({
     firstName: ['', Validators.required],
@@ -24,26 +28,25 @@ export class PatientForm {
     eirCode: [''],
     attendingDoctor: ['']
   });
-  
-  onSubmit(): void {
-    if (this.patientForm.invalid){
-      return;
-    }
 
+  onSubmit(): void {
+
+    
   const { firstName, lastName, age, eirCode, attendingDoctor } = this.patientForm.getRawValue();
   const newPatient: CreatePatientDto = { firstName, lastName, age, eirCode, attendingDoctor };
       
-      console.log('Submitted Patient:', newPatient);
+  this.saving.set(true);
+  this.saveError.set(null);
 
-      this.medicalService.addPatient(newPatient).subscribe({
-        next: (response) => {
-          console.log('Patient added successfully:', response);
-          this.router.navigate(['/patients']); 
-        },
-        error: (error) => {
-          console.error('Error adding Patient:', error);
-          }
-      });
-    }
+      this.patientService.addPatient(newPatient).subscribe({
+      next: (response) => {
+        console.log('Patient added successfully:', response);
+        this.router.navigate(['/patients']);
+      },
+    error: (err: Error) => {
+      this.saveError.set(err.message);
+      this.saving.set(false);
+    },
+    });
   }
-
+}
