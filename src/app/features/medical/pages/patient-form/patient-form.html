@@ -3,42 +3,77 @@
 
 
   <!-- First Name Field -->
-  <div class="form-group">
-    <label for="firstName">First Name:</label>
-    <input id="firstName" type="text" formControlName="firstName" placeholder="e.g. Bobby" />
-  </div>
+   <mat-form-field>
+    <mat-label>First Name</mat-label>
+    @if (patientForm.controls.firstName.hasError('required')){
+          <mat-error>First Name is required</mat-error>
+  } @else if (patientForm.controls.firstName.hasError('minlength')) {
+    <mat-error>First Name must be at least 2 characters</mat-error>
+    } @else if (patientForm.controls.firstName.hasError('maxlength')) {
+    <mat-error>First Name must be 40 characters or fewer</mat-error>
+    }
+
+    <input matInput formControlName="firstName" placeholder="e.g. Bobby">
+   </mat-form-field> 
 
   <!-- Last Name Field -->
-  <div class="form-group">
-    <label for="lastName">Last Name:</label>
-    <input id="lastName" type="text" formControlName="lastName" placeholder="e.g. Ross" />
+   <mat-form-field>
+    <mat-label>Last Name: </mat-label>
+    @if (patientForm.controls.lastName.hasError('required')){
+          <mat-error>Last Name is required</mat-error>
+  } @else if (patientForm.controls.lastName.hasError('minlength')) {
+    <mat-error>LastName must be at least 2 characters</mat-error>
+    } @else if (patientForm.controls.lastName.hasError('maxlength')) {
+    <mat-error>Last Name must be 40 characters or fewer</mat-error>
+    }
+    <input matInput formControlName="lastName" placeholder="e.g. Ross">
+   </mat-form-field>
     
-  </div>
 
   <!-- Age Field -->
-  <div class="form-group">
-    <label for="age">Age:</label>
-    <input id="age" type="number" formControlName="age" placeholder="e.g. 2004" />
-  </div>
+   <mat-form-field>
+    <mat-label>Age</mat-label>
+    <mat-error>Age is required</mat-error>
+        @if (patientForm.controls.age.hasError('required')){
+          <mat-error>Age is required</mat-error>
+  } @else if (patientForm.controls.age.hasError('minlength')) {
+    <mat-error>Age must be at least 0</mat-error>
+    } 
+
+    <input matInput formControlName="age" type="number" placeholder="e.g. 19">
+   </mat-form-field> 
+
 
   <!-- EirCode Field -->
-  <div class="form-group">
-    <label for="eirCode">EirCode:</label>
-    <input id="eirCode" type="text" formControlName="eirCode" placeholder="e.g. F26 X4532" />
-  </div>
+
+  <mat-form-field>
+    <mat-label>Eircode</mat-label>      
+   @if (patientForm.controls.eirCode.hasError('minlength')) {
+    <mat-error>LastName must be at least 7 characters</mat-error>
+    } @else if (patientForm.controls.eirCode.hasError('maxlength')) {
+    <mat-error>Last Name must be 7 characters or fewer</mat-error>
+    }
+    <input matInput formControlName="eirCode" placeholder="e.g. F26 X452">
+   </mat-form-field> 
+
   
-  <!-- Year Field -->
-  <div class="form-group">
-    <label for="attendingDoctor">Doctor:</label>
-    <input id="attendingDoctor" type="text" formControlName="attendingDoctor" placeholder="e.g. 15342123" />
-  </div>
+  <!-- Doctor Field -->
+   <mat-form-field>
+    <mat-label>Doctor</mat-label>
+    <mat-hint>Optional</mat-hint>
+    <input matInput formControlName="attendingDoctor" placeholder="e.g. Dr Houston">
+   </mat-form-field> 
 
   <!-- Action Buttons -->
   @if (saveError(); as message) { <p role="alert">{{ message }}</p> }
   <div class="button-group">
-    <button type="submit" [disabled]="saving()">
+    <button matButton="filled" type="submit" [disabled]="saving()">
       {{ saving() ? 'Saving...' : 'Save patient' }}
     </button>
-    <a routerLink="/patients">Cancel</a>
+    <a matButton routerLink="/patients">Cancel</a>
   </div>
+  @if (saving()){ 
+    <mat-progress-bar mode="buffer" />
+  }
+</form>
 

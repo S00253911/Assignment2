@@ -4,10 +4,11 @@ import { PatientCard } from '../patient-card/patient-card';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { withLoadState } from '../../../../shared/load-state';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-patients-page',
-  imports: [PatientCard, RouterLink],
+  imports: [PatientCard, RouterLink, MatButton, MatButtonModule],
   templateUrl: './patients-page.html',
   styleUrl: './patients-page.scss',
 })

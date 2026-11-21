@@ -4,10 +4,11 @@ import { Appointment } from '../../models/appointment.model';
 import { LoadState, withLoadState } from '../../../../shared/load-state';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-appointment-details',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './appointment-details.html',
   styleUrl: './appointment-details.scss',
 })

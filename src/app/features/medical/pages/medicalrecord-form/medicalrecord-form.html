@@ -3,48 +3,80 @@
 
 
   <!-- Patient Field -->
-  <div class="form-group">
-    <label for="patient">Patient:</label>
-    <input id="patient" type="text" formControlName="patient" placeholder="e.g. Bobby" />
-  </div>
+   <mat-form-field>
+    <mat-label>Patient Name:</mat-label>
+    @if (medicalRecordForm.controls.patient.hasError('required')){
+          <mat-error>Patient Name is required</mat-error>
+    }
+    <input matInput formControlName="patient" placeholder="e.g. Bobby">
+   </mat-form-field> 
 
   <!-- Doctor Field -->
-  <div class="form-group">
-    <label for="doctor">Doctor:</label>
-    <input id="doctor" type="text" formControlName="doctor" placeholder="e.g. Chief" />
-    
-  </div>
+<!-- First Name Field -->
+   <mat-form-field>
+    <mat-label>Doctor Name:</mat-label>
+    <mat-hint>Optional</mat-hint>
+    <input matInput formControlName="doctor" placeholder="e.g. Bobby">
+   </mat-form-field> 
 
   <!-- Date Field -->
-  <div class="form-group">
-    <label for="date">Date:</label>
-    <input id="date" type="date" formControlName="date" placeholder="e.g. 10/12/1940" />
-  </div>
+     <mat-form-field>
+    <mat-label>Date:</mat-label>
+    @if (medicalRecordForm.controls.date.hasError('required')){
+          <mat-error>Date is required</mat-error>
+    }
+    <input matInput formControlName="date" type="date" placeholder="e.g. 10-20-2026">
+   </mat-form-field> 
+
 
   <!-- Diagnosis Field -->
-  <div class="form-group">
-    <label for="diagnosis">Diagnosis:</label>
-    <input id="diagnosis" type="text" formControlName="diagnosis" placeholder="e.g. Infected Foot" />
-  </div>
+  <mat-form-field>
+    <mat-label>Diagnosis: </mat-label>
+    @if (medicalRecordForm.controls.diagnosis.hasError('required')){
+          <mat-error>Diagnosis is required</mat-error>
+  } @else if (medicalRecordForm.controls.diagnosis.hasError('minlength')) {
+    <mat-error>Diagnosis must be at least 10 characters</mat-error>
+    } @else if (medicalRecordForm.controls.diagnosis.hasError('maxlength')) {
+    <mat-error>Diagnosis must be 40 characters or fewer</mat-error>
+    }
+    <input matInput formControlName="diagnosis" placeholder="e.g. Bruised Ribcage">
+   </mat-form-field>
   
   <!-- Treatment Field -->
-  <div class="form-group">
-    <label for="treatment">Treatment:</label>
-    <input id="treatment" type="text" formControlName="treatment" placeholder="e.g. Disinfected foot" />
-  </div>
+ <mat-form-field>
+    <mat-label>Treatment: </mat-label>
+    @if (medicalRecordForm.controls.treatment.hasError('required')){
+          <mat-error>Treatment is required</mat-error>
+  } @else if (medicalRecordForm.controls.treatment.hasError('minlength')) {
+    <mat-error>Treatment must be at least 10 characters</mat-error>
+    } @else if (medicalRecordForm.controls.treatment.hasError('maxlength')) {
+    <mat-error>Treatment must be 40 characters or fewer</mat-error>
+    }
+    <input matInput formControlName="treatment" placeholder="e.g. Body Cast">
+   </mat-form-field>
 
   <!-- Prescription Field -->
-  <div class="form-group">
-    <label for="prescription">Prescription:</label>
-    <input id="prescription" type="text" formControlName="prescription" placeholder="e.g. Penecillin" />
-  </div>
+  <mat-form-field>
+    <mat-label>Prescription: </mat-label>
+    @if (medicalRecordForm.controls.prescription.hasError('required')){
+          <mat-error>Prescription is required</mat-error>
+  } @else if (medicalRecordForm.controls.prescription.hasError('minlength')) {
+    <mat-error>Prescription must be at least 2 characters</mat-error>
+    } @else if (medicalRecordForm.controls.prescription.hasError('maxlength')) {
+    <mat-error>Prescription must be 30 characters or fewer</mat-error>
+    }
+    <input matInput formControlName="prescription" placeholder="e.g. Morphine">
+   </mat-form-field>
 
   <!-- Action Buttons -->
-@if (saveError(); as message) { <p role="alert">{{ message }}</p> }
+  @if (saveError(); as message) { <p role="alert">{{ message }}</p> }
   <div class="button-group">
-    <button type="submit" [disabled]="saving()">
-      {{ saving() ? 'Saving...' : 'Save record' }}
+    <button matButton="filled" type="submit" [disabled]="saving()">
+      {{ saving() ? 'Saving...' : 'Save Record' }}
     </button>
-    <a routerLink="/medicalrecords">Cancel</a>
+    <a matButton routerLink="/medicalrecords">Cancel</a>
   </div>
+  @if (saving()){ 
+    <mat-progress-bar mode="buffer" />
+  }
 </form>
