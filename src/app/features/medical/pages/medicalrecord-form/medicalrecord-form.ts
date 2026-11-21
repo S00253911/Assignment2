@@ -29,12 +29,12 @@ export class MedicalrecordForm {
   saveError = signal<string | null>(null)
 
   medicalRecordForm = this.formBuilder.nonNullable.group({
-    patient: ['',Validators.required],
+    patient: ['',[Validators.required]],
     doctor: [''],
-    date: ['', Validators.required, Validators.min(this.currentYear), Validators.max(this.currentYear+2)],
-    diagnosis: ['', Validators.required, Validators.minLength(10), Validators.maxLength(40)],
-    treatment: ['',Validators.required, Validators.minLength(10), Validators.maxLength(40)],
-    prescription: ['', Validators.minLength(2), Validators.maxLength(30)],
+    date: ['', [Validators.required, Validators.min(this.currentYear), Validators.max(this.currentYear+2)]],
+    diagnosis: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(40)]],
+    treatment: ['',[Validators.required, Validators.minLength(10), Validators.maxLength(40)]],
+    prescription: ['', [Validators.minLength(2), Validators.maxLength(30)]],
   });
 
   onSubmit(): void {
