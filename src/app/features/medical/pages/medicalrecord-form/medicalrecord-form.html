@@ -1,1 +1,48 @@
-<p>medicalrecord-form works!</p>
+<form [formGroup]="medicalRecordForm" (ngSubmit)="onSubmit()" class="medicalrecord-form">
+  <h2>Medical Record Form</h2>
+
+
+  <!-- Patient Field -->
+  <div class="form-group">
+    <label for="patient">Patient:</label>
+    <input id="patient" type="text" formControlName="patient" placeholder="e.g. Bobby" />
+  </div>
+
+  <!-- Doctor Field -->
+  <div class="form-group">
+    <label for="doctor">Doctor:</label>
+    <input id="doctor" type="text" formControlName="doctor" placeholder="e.g. Chief" />
+    
+  </div>
+
+  <!-- Date Field -->
+  <div class="form-group">
+    <label for="date">Date:</label>
+    <input id="date" type="date" formControlName="date" placeholder="e.g. 10/12/1940" />
+  </div>
+
+  <!-- Diagnosis Field -->
+  <div class="form-group">
+    <label for="diagnosis">Diagnosis:</label>
+    <input id="diagnosis" type="text" formControlName="diagnosis" placeholder="e.g. Infected Foot" />
+  </div>
+  
+  <!-- Treatment Field -->
+  <div class="form-group">
+    <label for="treatment">Treatment:</label>
+    <input id="treatment" type="text" formControlName="treatment" placeholder="e.g. Disinfected foot" />
+  </div>
+
+  <!-- Prescription Field -->
+  <div class="form-group">
+    <label for="prescription">Prescription:</label>
+    <input id="prescription" type="text" formControlName="prescription" placeholder="e.g. Penecillin" />
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="button-group">
+    <button type="submit"     >
+     Save Medical Record</button>
+
+  </div>
+</form>

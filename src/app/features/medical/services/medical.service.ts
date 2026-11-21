@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { CreatePatientDto, Patient } from '../models/patient.model';
 import { Doctor } from '../models/doctor.model';
 import { Appointment } from '../models/appointment.model';
-import { MedicalRecord } from '../models/medicalrecord.model';
+import { CreateMedicalRecordDto, MedicalRecord } from '../models/medicalrecord.model';
 import { catchError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
@@ -28,13 +28,14 @@ export class MedicalService {
  getPatientById(id: string): Observable<Patient>{
   return this.http.get<Patient>(`${this.patientApiUrl}/${id}`)
  } 
-
  addPatient(patient: CreatePatientDto): Observable<Patient>{
   return this.http.post<Patient>(this.patientApiUrl, patient)
   .pipe(
-    catchError((err) => this.handleErrorPatient(err))
+    catchError((err) => this.handleError(err))
   )
  }
+
+
 // GET FUNCTION FOR DOCTORS
  getDoctors(): Observable<Doctor[]>{
   return this.http.get<Doctor[]>(this.doctorApiUrl);
@@ -42,6 +43,8 @@ export class MedicalService {
  getDoctorById(id: string): Observable<Doctor>{
   return this.http.get<Doctor>(`${this.doctorApiUrl}/${id}`)
  } 
+
+
 // GET FUNCTION FOR APPOINTMENTS
  getAppointments(): Observable<Appointment[]>{
   return this.http.get<Appointment[]>(this.appointmentApiUrl);
@@ -49,6 +52,8 @@ export class MedicalService {
  getAppointmentById(id: string): Observable<Appointment>{
   return this.http.get<Appointment>(`${this.appointmentApiUrl}/${id}`)
  } 
+
+
 // GET FUNCTION FOR MEDICAL RECORDS
  getMedicalRecords(): Observable<MedicalRecord[]>{
   return this.http.get<MedicalRecord[]>(this.medicalrecordsApiUrl);
@@ -57,9 +62,15 @@ export class MedicalService {
   return this.http.get<MedicalRecord>(`${this.medicalrecordsApiUrl}/${id}`)
  }
 
+ addMedicalRecord(medicalRecord: CreateMedicalRecordDto): Observable<MedicalRecord>{
+  return this.http.post<MedicalRecord>(this.medicalrecordsApiUrl, medicalRecord)
+  .pipe(
+    catchError((err) => this.handleError(err))
+  )
+ }
 
 
- private handleErrorPatient(error: HttpErrorResponse) {
+ private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
