@@ -1,6 +1,6 @@
 <div class="patients-page-container">
   <h2>Patients List</h2>
-<button [routerLink]="['']">Home</button>
+<button matButton="filled" routerLink="/">Home</button>
   @let s = state();
   @if (s.status === 'loading') {
     <p>Loading patients...</p>
