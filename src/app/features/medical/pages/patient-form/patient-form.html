@@ -5,7 +5,6 @@
   <!-- First Name Field -->
    <mat-form-field>
     <mat-label>First Name</mat-label>
-    <mat-error>First Name is required</mat-error>
     @if (patientForm.controls.firstName.hasError('required')){
           <mat-error>First Name is required</mat-error>
   } @else if (patientForm.controls.firstName.hasError('minlength')) {
@@ -20,7 +19,6 @@
   <!-- Last Name Field -->
    <mat-form-field>
     <mat-label>Last Name: </mat-label>
-    <mat-error>Last Name is required</mat-error>
     @if (patientForm.controls.lastName.hasError('required')){
           <mat-error>Last Name is required</mat-error>
   } @else if (patientForm.controls.lastName.hasError('minlength')) {
@@ -77,5 +75,5 @@
   @if (saving()){ 
     <mat-progress-bar mode="buffer" />
   }
-
+</form>
 
