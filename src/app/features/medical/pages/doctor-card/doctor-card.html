@@ -1,0 +1,7 @@
+<div class="card">
+    <h3>{{ doctor().firstName }} {{ doctor().lastName }}</h3>
+
+    @if(doctor().title){ <p>Title: {{ doctor().age }}</p>}
+
+    <a [routerLink]="['/doctors', doctor()._id]">View Profile</a>
+</div>

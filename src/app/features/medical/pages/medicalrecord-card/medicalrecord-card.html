@@ -1,0 +1,7 @@
+<div class="card">
+    <h3>{{ medicalrecord()._id }} {{ medicalrecord().diagnosis }}</h3>
+
+    @if(medicalrecord().diagnosis){ <p>diagnosis: {{ medicalrecord().diagnosis }}</p>}
+
+    <a [routerLink]="['/medicalrecords', medicalrecord()._id]">View Profile</a>
+</div>

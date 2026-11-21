@@ -3,11 +3,14 @@
 @if (patients$ | async; as patient) {
 
 <ul>
-  @for (patients of patient; track patients._id) {
-  <li>{{ patients.firstName }} {{ patients._id }}</li>
-  }
+   <div class="grid">
+            @for (patients of patient; track patients._id) {
+             <app-patient-card [patient]="patients" />
+            }  
+    </div>
 </ul>
 } @else {
 Loading patients...
 
 }
+

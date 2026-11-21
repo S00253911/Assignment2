@@ -3,10 +3,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MedicalService } from '../../services/medical.service';
 import { Observable } from 'rxjs';
 import { Doctor } from '../../models/doctor.model';
+import { DoctorCard } from '../doctor-card/doctor-card';
 
 @Component({
   selector: 'app-doctors-page',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, DoctorCard],
   templateUrl: './doctors-page.html',
   styleUrl: './doctors-page.scss',
 })

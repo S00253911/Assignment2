@@ -5,11 +5,19 @@ export interface MedicalrecordModel {
 }
 
 export interface MedicalRecord{
-    _id: string;
-    patient: Patient;
-    doctor: Doctor;
-    date: Date;
-    diagnosis: string;
-    treatment: string;
-    prescription: string;
+    _id?: string;
+    patient?: Patient;
+    doctor?: Doctor;
+    date: string;
+    diagnosis?: string;
+    treatment?: string;
+    prescription?: string;
+}
+export interface CreateMedicalRecordDto{
+    patient?: Patient;
+    doctor?: Doctor;
+    date: string;
+    diagnosis?: string;
+    treatment?: string;
+    prescription?: string;
 }

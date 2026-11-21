@@ -7,7 +7,16 @@ export interface Patient{
     _id?: string;
     firstName: string;
     lastName: string;
-    age: Number;
-    eirCode: string;
-    attendingDoctor: Doctor
+    age: number;
+    eirCode?: string;
+    attendingDoctor?: Doctor
+}
+
+export interface CreatePatientDto{
+    firstName: string;
+    lastName: string;
+    age: number;
+    eirCode?: string;
+    attendingDoctor?: Doctor;
+
 }

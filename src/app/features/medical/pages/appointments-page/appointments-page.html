@@ -3,9 +3,11 @@
 @if (appointments$ | async; as appointment) {
 
 <ul>
-  @for (appointments of appointment; track appointments._id) {
-  <li>{{ appointments.reason }} {{ appointments._id }}</li>
-  }
+  <div class="grid">
+            @for (appointments of appointment; track appointments._id) {
+             <app-appointment-card [appointment]="appointments" />
+            }  
+    </div>
 </ul>
 } @else {
 Loading appointments...

@@ -1,0 +1,7 @@
+<div class="card">
+    <h3>{{ appointment()._id }} {{ appointment().date }}</h3>
+
+    @if(appointment().time){ <p>Time: {{ appointment().time }}</p>}
+
+    <a [routerLink]="['/appointments', appointment()._id]">View Profile</a>
+</div>
