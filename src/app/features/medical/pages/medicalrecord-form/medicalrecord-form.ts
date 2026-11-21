@@ -33,6 +33,9 @@ export class MedicalrecordForm {
     const {patient, doctor, date, diagnosis, treatment, prescription } = this.medicalRecordForm.getRawValue();
     const newMedicalRecord: CreateMedicalRecordDto = {patient, doctor, date, diagnosis, treatment, prescription};
 
+    this.saving.set(true);
+    this.saveError.set(null);
+    
     this.medicalService.addMedicalRecord(newMedicalRecord).subscribe({
       next: (response) => {
         console.log('Record added successfully:', response);

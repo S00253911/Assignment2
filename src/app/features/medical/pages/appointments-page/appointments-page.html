@@ -1,15 +1,18 @@
-<h2>Appointments List</h2>
+<div class="appointments-page-container">
+  <h2>Appointments List</h2>
 <button [routerLink]="['']">Home</button>
-@if (appointments$ | async; as appointment) {
-
-<ul>
-  <div class="grid">
-            @for (appointments of appointment; track appointments._id) {
-             <app-appointment-card [appointment]="appointments" />
-            }  
+  @let s = state();
+  @if (s.status === 'loading') {
+    <p>Loading Appointments...</p>
+  } @else if (s.status === 'error') {
+    <p> {{ s.message }}</p>
+  } @else if (s.data.length === 0) {
+    <p>No Appointments available at the moment.</p>
+  } @else {
+    <div class="grid">
+      @for (appointment of s.data; track appointment._id) {
+        <app-appointment-card [appointment]="appointment" />
+      }
     </div>
-</ul>
-} @else {
-Loading appointments...
-
-}
+  }
+</div>

@@ -1,10 +1,10 @@
-<h2>Medical Record Details</h2>
+<h2>Doctor Details</h2>
 
-<p> Record ID Is {{id()}}</p>
+<p> Doctor ID Is {{id()}}</p>
 
 @let s = state();
 @if (s.status === 'loading') {
-  <p>Loading record details...</p>
+  <p>Loading doctor details...</p>
 } 
 @else if (s.status === 'error') {
   <p >{{ s.message }}</p>
@@ -13,15 +13,15 @@
   <h2>Title:{{ s.data.title }} Name: {{ s.data.firstName }} {{ s.data.lastName }} </h2>
   
 @if (s.data.specialization) {
-    <p>Date: {{ s.data.specialization }}</p>
+    <p>Specialization: {{ s.data.specialization }}</p>
   }
 
 @if(s.data.age){
-    <p>Diagnosis: {{s.data.age }}</p>
+    <p>Age: {{s.data.age }}</p>
     }
     
 @if(s.data.attendingPatients){
-    <p>Treatment: {{s.data.attendingPatients }}</p>
+    <p>Patients: {{s.data.attendingPatients }}</p>
 }
 
 }

@@ -4,9 +4,10 @@ import { inject } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { CreatePatientDto, Patient } from '../models/patient.model';
 import { CreateDoctorDto, Doctor } from '../models/doctor.model';
-import { Appointment } from '../models/appointment.model';
+import { Appointment, CreateAppointmentDto } from '../models/appointment.model';
 import { CreateMedicalRecordDto, MedicalRecord } from '../models/medicalrecord.model';
 import { catchError } from 'rxjs';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -75,6 +76,13 @@ export class MedicalService {
     catchError((err) => this.handleError(err))
   );
  } 
+
+ addAppointment(appointment: CreateAppointmentDto): Observable<Appointment>{
+  return this.http.post<Appointment>(this.appointmentApiUrl, appointment)
+  .pipe(
+    catchError((err) => this.handleError(err))
+  );
+ }
 
 
 //  FUNCTIONS FOR MEDICAL RECORDS

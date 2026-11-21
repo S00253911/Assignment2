@@ -18,7 +18,7 @@ export class DoctorForm {
   private router = inject(Router);
 
   saving = signal(false);
-  saveError = signal<string | null>(null)
+  saveError = signal<string | null>(null);
 
   doctorForm = this.formBuilder.nonNullable.group({
     title: [''],
@@ -33,6 +33,9 @@ export class DoctorForm {
 
     const {title, firstName, lastName, specialization, age, attendingPatients } = this.doctorForm.getRawValue();
     const newDoctor: CreateDoctorDto = {title, firstName, lastName, specialization, age, attendingPatients};
+
+    this.saving.set(true);
+    this.saveError.set(null);
 
     this.medicalService.addDoctor(newDoctor).subscribe({
       next: (response) => {
