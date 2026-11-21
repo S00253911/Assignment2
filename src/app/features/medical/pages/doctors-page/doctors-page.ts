@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { Doctor } from '../../models/doctor.model';
 import { DoctorCard } from '../doctor-card/doctor-card';
 import { RouterLink } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { withLoadState } from '../../../../shared/load-state';
 
 @Component({
   selector: 'app-doctors-page',
@@ -12,16 +14,13 @@ import { RouterLink } from '@angular/router';
   templateUrl: './doctors-page.html',
   styleUrl: './doctors-page.scss',
 })
-export class DoctorsPage implements OnInit {
+export class DoctorsPage {
 
 
   private doctorService = inject(MedicalService);
 
-  doctors$!: Observable<Doctor[]>;
+  state = toSignal(withLoadState(this.doctorService.getDoctors()), { requireSync: true });
 
-  ngOnInit(): void {
-    this.doctors$ = this.doctorService.getDoctors();
-  }
 
 
 }

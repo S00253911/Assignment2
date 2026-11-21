@@ -1,12 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MedicalService } from '../../services/medical.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CreateMedicalRecordDto, MedicalRecord } from '../../models/medicalrecord.model';
 
 @Component({
   selector: 'app-medicalrecord-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './medicalrecord-form.html',
   styleUrl: './medicalrecord-form.scss',
 })

@@ -1,1 +1,43 @@
-<p>doctor-form works!</p>
+<form [formGroup]="doctorForm" (ngSubmit)="onSubmit()" class="doctor-form">
+  <h2>Doctor Form</h2>
+
+ <!-- Title Field -->
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input id="title" type="text" formControlName="title" placeholder="e.g. Dr." />
+  </div>
+
+  <!-- First Name Field -->
+  <div class="form-group">
+    <label for="firstName">First Name:</label>
+    <input id="firstName" type="text" formControlName="firstName" placeholder="e.g. Bobby" />
+  </div>
+
+  <!-- Last Name Field -->
+  <div class="form-group">
+    <label for="lastName">Last Name:</label>
+    <input id="lastName" type="text" formControlName="lastName" placeholder="e.g. Ross" />
+    
+  </div>
+
+  <!-- Age Field -->
+  <div class="form-group">
+    <label for="age">Age:</label>
+    <input id="age" type="number" formControlName="age" placeholder="e.g. 20" />
+  </div>
+
+  <!-- Specialization Field -->
+  <div class="form-group">
+    <label for="specialization">Specialization:</label>
+    <input id="specialization" type="text" formControlName="specialization" placeholder="e.g. Surgeon" />
+  </div>
+
+  <!-- Action Buttons -->
+  @if (saveError(); as message) { <p role="alert">{{ message }}</p> }
+  <div class="button-group">
+    <button type="submit" [disabled]="saving()">
+      {{ saving() ? 'Saving...' : 'Save doctor' }}
+    </button>
+    <a routerLink="/doctors">Cancel</a>
+  </div>
+
