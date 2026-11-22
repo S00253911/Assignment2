@@ -2,11 +2,13 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';  
 import { Observable, throwError } from 'rxjs';
-import { CreatePatientDto, Patient } from '../models/patient.model';
-import { CreateDoctorDto, Doctor } from '../models/doctor.model';
-import { Appointment, CreateAppointmentDto } from '../models/appointment.model';
-import { CreateMedicalRecordDto, MedicalRecord } from '../models/medicalrecord.model';
+import { CreatePatientDto, Patient, UpdatePatientDto } from '../models/patient.model';
+import { CreateDoctorDto, Doctor, UpdateDoctorDto } from '../models/doctor.model';
+import { Appointment, CreateAppointmentDto, UpdateAppointmentDto } from '../models/appointment.model';
+import { CreateMedicalRecordDto, MedicalRecord, UpdateMedicalRecordDto } from '../models/medicalrecord.model';
 import { catchError } from 'rxjs';
+import { App } from '../../../app';
+import { MedicalrecordCard } from '../pages/medicalrecord-card/medicalrecord-card';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +43,13 @@ export class MedicalService {
     catchError((err) => this.handleError(err))
   );
  }
+updatePatient(id: string, changes: UpdatePatientDto): Observable<Patient>{
+  return this.http.put<Patient>(`${this.patientApiUrl}/${id}`, changes)
+}
 
+deletePatient(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.patientApiUrl}/${id}`);
+  }
 
 //  FUNCTIONS FOR DOCTORS
  getDoctors(): Observable<Doctor[]>{
@@ -62,7 +70,14 @@ export class MedicalService {
     catchError((err) => this.handleError(err))
   );
 }
+deleteDoctor(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.doctorApiUrl}/${id}`);
+  }
 
+
+updateDoctor(id: string, changes: UpdateDoctorDto): Observable<Doctor>{
+  return this.http.put<Doctor>(`${this.doctorApiUrl}/${id}`, changes)
+}
 //  FUNCTIONS FOR APPOINTMENTS
  getAppointments(): Observable<Appointment[]>{
   return this.http.get<Appointment[]>(this.appointmentApiUrl)
@@ -84,7 +99,13 @@ export class MedicalService {
   );
  }
 
+updateAppointment(id: string, changes: UpdateAppointmentDto): Observable<Appointment>{
+  return this.http.put<Appointment>(`${this.appointmentApiUrl}/${id}`, changes)
+}
 
+deleteAppointment(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.appointmentApiUrl}/${id}`);
+  }
 //  FUNCTIONS FOR MEDICAL RECORDS
  getMedicalRecords(): Observable<MedicalRecord[]>{
   return this.http.get<MedicalRecord[]>(this.medicalrecordsApiUrl)
@@ -106,7 +127,15 @@ export class MedicalService {
   );
  }
 
+updateMedicalRecord(id: string, changes: UpdateMedicalRecordDto): Observable<MedicalRecord>{
+  return this.http.put<MedicalRecord>(`${this.medicalrecordsApiUrl}/${id}`, changes)
+}
 
+deleteMedicalRecord(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.medicalrecordsApiUrl}/${id}`);
+  }
+
+  // Handle error function
  private handleError(error: HttpErrorResponse): Observable<never> {
     let message: string;
 

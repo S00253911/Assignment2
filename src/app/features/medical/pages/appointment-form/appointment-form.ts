@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MedicalService } from '../../services/medical.service';
 import { Router, RouterLink } from '@angular/router';
@@ -17,26 +17,36 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   templateUrl: './appointment-form.html',
   styleUrl: './appointment-form.scss',
 })
-export class AppointmentForm {
+export class AppointmentForm implements OnInit {
 
   private formBuilder = inject(FormBuilder);
   private appointmentService = inject(MedicalService);
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
+  readonly id = input<string>();  // note this is optional by default 
+
   saving = signal(false);
   saveError = signal<string | null>(null);
 
   appointmentForm = this.formBuilder.nonNullable.group({
-    patient: ['', Validators.required],
-    doctor: ['', Validators.required],
-    date: ['', Validators.required],
-    time: ['', Validators.required],
-    reason: ['', Validators.required],
+    patient: ['', [Validators.required]],
+    doctor: ['', [Validators.required]],
+    date: ['', [Validators.required]],
+    time: ['', [Validators.required]],
+    reason: ['', [Validators.required]],
   });
 
   onSubmit(): void{
     const {patient, doctor, date, time, reason } = this.appointmentForm.getRawValue();
     const newAppointment: CreateAppointmentDto = {patient, doctor, date: new Date(date), time, reason};
+
+
+
+    const id = this.id(); 
+    const request = id 
+    ? this.appointmentService.updateAppointment(id, newAppointment)
+    : this.appointmentService.addAppointment(newAppointment);
+
 
     this.saving.set(true);
     this.saveError.set(null);
@@ -53,6 +63,17 @@ export class AppointmentForm {
         this.saveError.set(err.message);
         this.saving.set(true);
       }
+    });
+  }
+
+   ngOnInit(): void {
+    const id = this.id();
+    if (!id) return; // adding a new appointment, nothing to load
+
+    this.appointmentService.getAppointmentById(id).subscribe({
+      next: (appointment) =>
+        this.appointmentForm.patchValue({ patient: appointment.patient?._id, date: appointment.date.toISOString() ,doctor: appointment.doctor?._id, time: appointment.time, reason: appointment.reason}),
+      error: (err: Error) => this.saveError.set(err.message),
     });
   }
 }

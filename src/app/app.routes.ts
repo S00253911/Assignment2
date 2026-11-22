@@ -34,6 +34,10 @@ export const routes: Routes = [
     path: 'patients/:id',
     component: PatientDetails
 },
+{
+    path: 'patients/:id/edit',
+    component: PatientForm
+},
 // DOCTOR ROUTES
 
 {
@@ -47,6 +51,10 @@ export const routes: Routes = [
 {
     path: 'doctors/:id',
     component: DoctorDetails
+},
+{
+    path: 'doctors/:id/edit',
+    component: DoctorForm
 },
 // MEDICAL RECORD ROUTES
 
@@ -62,6 +70,11 @@ export const routes: Routes = [
     path: 'medicalrecords/:id',
     component: MedicalrecordDetails
 },
+{
+    path: 'medicalrecords/:id/edit',
+    component: MedicalrecordForm
+},
+
 
 
 // APPOINTMENTS ROUTES
@@ -76,5 +89,9 @@ export const routes: Routes = [
 {
     path: 'appointments/:id',
     component: AppointmentDetails
+},
+{
+    path: 'appointments/:id/edit',
+    component: AppointmentForm
 }
 ];

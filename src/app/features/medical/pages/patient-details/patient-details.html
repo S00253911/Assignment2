@@ -1,8 +1,9 @@
 <h2>Patient Details</h2>
-<button [routerLink]="['']">Home</button>
+<button matButton="filled" routerLink="/">Home</button>
 <p> Patient ID Is {{id()}}</p>
 
 @let s = state();
+
 @if (s.status === 'loading') {
   <p>Loading patient details...</p>
 } 
@@ -19,4 +20,12 @@
 @if(s.data.attendingDoctor){
     <p>Doctor: {{s.data.attendingDoctor }}</p>
     }
+    <a matButton="filled" [routerLink]="['/patients', s.data._id, 'edit']">Edit</a>
+    <button matButton="outlined" (click)="deletePatient(s.data)" [disabled]="deleting()">
+  Delete
+</button> 
+@if (deleteError(); as message){
+  <p class="error">{{message}}</p>
+}
+
 }

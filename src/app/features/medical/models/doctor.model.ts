@@ -5,13 +5,13 @@ export interface DoctorModel {
 }
 
 export interface Doctor{
-    _id?: string;
+    _id: string;
     title: string;
     firstName: string;
     lastName: string;
     specialization: string;
     age: number;
-    attendingPatients: Patient[];
+    attendingPatients?: Patient;
 }
 
 export interface CreateDoctorDto{
@@ -20,5 +20,14 @@ export interface CreateDoctorDto{
     lastName: string;
     specialization: string;
     age: number;
-    attendingPatients?: string[]; 
+    attendingPatients: string; 
+}
+
+export interface UpdateDoctorDto{
+    title: string;
+    firstName: string;
+    lastName: string;
+    specialization: string;
+    age: number;
+    attendingPatients: string;
 }

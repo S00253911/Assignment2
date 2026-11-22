@@ -5,7 +5,7 @@ export interface AppointmentModel {
 }
 
 export interface Appointment{
-    _id?: string;
+    _id: string;
     patient: Patient;
     doctor: Doctor;
     date: Date;
@@ -15,6 +15,14 @@ export interface Appointment{
 
 export interface CreateAppointmentDto{
     patient: string;
+    doctor: string;
+    date: Date;
+    time: string;
+    reason: string;
+}
+
+export interface UpdateAppointmentDto{
+    patient:string;
     doctor: string;
     date: Date;
     time: string;

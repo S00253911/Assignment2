@@ -1,5 +1,5 @@
 <h2>Doctor Details</h2>
-<button [routerLink]="['']">Home</button>
+<button matButton="filled" routerLink="/">Home</button>
 <p> Doctor ID Is {{id()}}</p>
 
 @let s = state();
@@ -22,6 +22,13 @@
     
 @if(s.data.attendingPatients){
     <p>Patients: {{s.data.attendingPatients }}</p>
+}
+<a matButton="filled" [routerLink]="['/doctors', s.data._id, 'edit']">Edit</a>
+    <button matButton="outlined" (click)="deleteDoctor(s.data)" [disabled]="deleting()">
+  Delete
+</button> 
+@if (deleteError(); as message){
+  <p class="error">{{message}}</p>
 }
 
 }
