@@ -92,6 +92,6 @@ export const routes: Routes = [
 },
 {
     path: 'appointments/:id/edit',
-    component: MedicalrecordForm
+    component: AppointmentForm
 }
 ];

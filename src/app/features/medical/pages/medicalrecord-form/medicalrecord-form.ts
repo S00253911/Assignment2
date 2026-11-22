@@ -69,7 +69,7 @@ export class MedicalrecordForm implements OnInit {
 
   ngOnInit(): void {
     const id = this.id();
-    if (!id) return; // adding a new patient, nothing to load
+    if (!id) return; // adding a new record, nothing to load
 
     this.medicalService.getMedicalRecordById(id).subscribe({
       next: (medicalRecord) =>
