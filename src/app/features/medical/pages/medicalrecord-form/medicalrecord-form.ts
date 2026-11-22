@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MedicalService } from '../../services/medical.service';
 import { Router, RouterLink } from '@angular/router';
@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './medicalrecord-form.html',
   styleUrl: './medicalrecord-form.scss',
 })
-export class MedicalrecordForm {
+export class MedicalrecordForm implements OnInit {
 
   private formBuilder = inject(FormBuilder);
   private medicalService = inject(MedicalService)

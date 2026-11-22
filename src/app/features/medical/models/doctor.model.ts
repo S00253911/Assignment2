@@ -11,7 +11,7 @@ export interface Doctor{
     lastName: string;
     specialization: string;
     age: number;
-    attendingPatients: Patient[];
+    attendingPatients?: Patient;
 }
 
 export interface CreateDoctorDto{
@@ -20,7 +20,7 @@ export interface CreateDoctorDto{
     lastName: string;
     specialization: string;
     age: number;
-    attendingPatients?: string[]; 
+    attendingPatients: string; 
 }
 
 export interface UpdateDoctorDto{
@@ -29,5 +29,5 @@ export interface UpdateDoctorDto{
     lastName: string;
     specialization: string;
     age: number;
-    attendingPatients: string[];
+    attendingPatients: string;
 }

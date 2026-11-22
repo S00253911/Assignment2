@@ -16,12 +16,9 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
 export class MedicalrecordDetails {
 
   private medicalRecordService = inject(MedicalService);
-  
   private readonly router = inject(Router);
-
   readonly deleting = signal(false);
   readonly deleteError = signal<string | null>(null);
-
   readonly id = input.required<string>();
   readonly initial: LoadState<MedicalRecord> = { status: 'loading' };
 
