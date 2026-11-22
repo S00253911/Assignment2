@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MedicalService } from '../../services/medical.service';
 import { Router, RouterLink } from '@angular/router';
@@ -24,6 +24,7 @@ export class MedicalrecordForm {
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
   private currentYear = new Date().getFullYear();
+  readonly id = input<string>();  // note this is optional by default
 
   saving = signal(false);
   saveError = signal<string | null>(null)
@@ -42,6 +43,12 @@ export class MedicalrecordForm {
     const {patient, doctor, date, diagnosis, treatment, prescription } = this.medicalRecordForm.getRawValue();
     const newMedicalRecord: CreateMedicalRecordDto = {patient, doctor, date, diagnosis, treatment, prescription};
 
+
+     const id = this.id(); 
+    const request = id 
+    ? this.medicalService.updateMedicalRecord(id, newMedicalRecord)
+    : this.medicalService.addMedicalRecord(newMedicalRecord);
+
     this.saving.set(true);
     this.saveError.set(null);
 
@@ -57,6 +64,17 @@ export class MedicalrecordForm {
         this.saveError.set(err.message);
         this.saving.set(false);
       },
+    });
+  }
+
+  ngOnInit(): void {
+    const id = this.id();
+    if (!id) return; // adding a new patient, nothing to load
+
+    this.medicalService.getMedicalRecordById(id).subscribe({
+      next: (medicalRecord) =>
+        this.medicalRecordForm.patchValue({ patient: medicalRecord.patient?._id, doctor: medicalRecord.doctor?._id, date: medicalRecord.date, diagnosis: medicalRecord.diagnosis, treatment: medicalRecord.treatment, prescription: medicalRecord.prescription }),
+      error: (err: Error) => this.saveError.set(err.message),
     });
   }
 }
